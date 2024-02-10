@@ -1,0 +1,17 @@
+C:\Users\pc\source\repos\IMS\IMS.Repository\bin\Debug\net6.0\IMS.Repository.deps.json
+C:\Users\pc\source\repos\IMS\IMS.Repository\bin\Debug\net6.0\IMS.Repository.dll
+C:\Users\pc\source\repos\IMS\IMS.Repository\bin\Debug\net6.0\IMS.Repository.pdb
+C:\Users\pc\source\repos\IMS\IMS.Repository\obj\Debug\net6.0\IMS.Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pc\source\repos\IMS\IMS.Repository\obj\Debug\net6.0\IMS.Repository.AssemblyInfoInputs.cache
+C:\Users\pc\source\repos\IMS\IMS.Repository\obj\Debug\net6.0\IMS.Repository.AssemblyInfo.cs
+C:\Users\pc\source\repos\IMS\IMS.Repository\obj\Debug\net6.0\IMS.Repository.csproj.CoreCompileInputs.cache
+C:\Users\pc\source\repos\IMS\IMS.Repository\obj\Debug\net6.0\IMS.Repository.dll
+C:\Users\pc\source\repos\IMS\IMS.Repository\obj\Debug\net6.0\refint\IMS.Repository.dll
+C:\Users\pc\source\repos\IMS\IMS.Repository\obj\Debug\net6.0\IMS.Repository.pdb
+C:\Users\pc\source\repos\IMS\IMS.Repository\obj\Debug\net6.0\ref\IMS.Repository.dll
+C:\Users\pc\source\repos\IMS\IMS.Repository\bin\Debug\net6.0\IMS.Domain.dll
+C:\Users\pc\source\repos\IMS\IMS.Repository\bin\Debug\net6.0\IMS.Domain.pdb
+C:\Users\pc\source\repos\IMS\IMS.Repository\obj\Debug\net6.0\IMS.Repository.csproj.AssemblyReference.cache
+C:\Users\pc\source\repos\IMS\IMS.Repository\obj\Debug\net6.0\IMS.Repository.csproj.CopyComplete
+C:\Users\pc\source\repos\IMS\IMS.Repository\bin\Debug\net6.0\IMS.Repository.runtimeconfig.json
+C:\Users\pc\source\repos\IMS\IMS.Repository\obj\Debug\net6.0\IMS.Repository.genruntimeconfig.cache

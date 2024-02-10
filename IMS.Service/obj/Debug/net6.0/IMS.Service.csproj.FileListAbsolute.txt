@@ -1,0 +1,11 @@
+C:\Users\pc\source\repos\IMS\IMS.Service\bin\Debug\net6.0\IMS.Service.deps.json
+C:\Users\pc\source\repos\IMS\IMS.Service\bin\Debug\net6.0\IMS.Service.dll
+C:\Users\pc\source\repos\IMS\IMS.Service\bin\Debug\net6.0\IMS.Service.pdb
+C:\Users\pc\source\repos\IMS\IMS.Service\obj\Debug\net6.0\IMS.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pc\source\repos\IMS\IMS.Service\obj\Debug\net6.0\IMS.Service.AssemblyInfoInputs.cache
+C:\Users\pc\source\repos\IMS\IMS.Service\obj\Debug\net6.0\IMS.Service.AssemblyInfo.cs
+C:\Users\pc\source\repos\IMS\IMS.Service\obj\Debug\net6.0\IMS.Service.csproj.CoreCompileInputs.cache
+C:\Users\pc\source\repos\IMS\IMS.Service\obj\Debug\net6.0\IMS.Service.dll
+C:\Users\pc\source\repos\IMS\IMS.Service\obj\Debug\net6.0\refint\IMS.Service.dll
+C:\Users\pc\source\repos\IMS\IMS.Service\obj\Debug\net6.0\IMS.Service.pdb
+C:\Users\pc\source\repos\IMS\IMS.Service\obj\Debug\net6.0\ref\IMS.Service.dll
