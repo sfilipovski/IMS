@@ -73,4 +73,9 @@ public class WarehousesController : Controller
         this._warehouseService.DeleteWarehouse(id);
         return RedirectToAction("Index");
     }
+
+    public IActionResult GetAllWarehouseProducts()
+    {
+        return View(this._warehouseService.GetAllWarehouseProducts());
+    }
 }

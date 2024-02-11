@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("IMS.Service")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+733bf9cc12086dc6d3051425231d2071a402eb31")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff6e5494f2ae4d6c1dfec2e839ff75b0818cc16c")]
 [assembly: System.Reflection.AssemblyProductAttribute("IMS.Service")]
 [assembly: System.Reflection.AssemblyTitleAttribute("IMS.Service")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

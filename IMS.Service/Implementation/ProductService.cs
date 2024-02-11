@@ -1,6 +1,7 @@
 ﻿using IMS.Domain.DTO.Command;
 using IMS.Domain.DTO.Query;
 using IMS.Domain.Models;
+using IMS.Domain.Relationship;
 using IMS.Repository.Interface;
 using IMS.Service.Interface;
 
@@ -11,13 +12,17 @@ public class ProductService : IProductService
     private readonly IRepository<Product> _repository;
     private readonly IRepository<Category> _categoryRepository;
     private readonly IRepository<Supplier> _supplierRepository;
+    private readonly IRepository<Warehouse> _warehouseRepository;
+    private readonly IRepository<WarehouseProducts> _warehouseProductsRepository;
 
-    public ProductService(IRepository<Product> repository, IRepository<Category> categoryRepository, IRepository<Supplier> supplierRepository)
+    public ProductService(IRepository<Product> repository, IRepository<Category> categoryRepository, IRepository<Supplier> supplierRepository, IRepository<WarehouseProducts> warehouseProductsRepository, IRepository<Warehouse> warehouseRepository)
     {
         _repository = repository;
         _categoryRepository = categoryRepository;
         _categoryRepository = categoryRepository;
         _supplierRepository = supplierRepository;
+        _warehouseProductsRepository = warehouseProductsRepository;
+        _warehouseRepository = warehouseRepository;
     }
 
     public void CreateNewProduct(Product product)
@@ -57,5 +62,39 @@ public class ProductService : IProductService
         p.ProductSupplier = _supplierRepository.Get(p.ProductSupplierId);
 
         this._repository.Update(p);
+    }
+
+
+    public void AddProductToWarehouse(WarehouseProducts wp)
+    {
+        Product product = this._repository.Get(wp.WarehouseProductId);
+        Warehouse warehouse = this._warehouseRepository.Get(wp.WarehouseProductId);
+
+        WarehouseProducts warehouseProducts = new WarehouseProducts
+        {
+            WarehouseProduct = product,
+            WarehouseProductId = wp.WarehouseProductId,
+            Warehouse = warehouse,
+            WarehouseId = wp.WarehouseId,
+            QuantityInStock = wp.QuantityInStock,
+            ReorderLimit = wp.ReorderLimit
+        };
+
+        this._warehouseProductsRepository.Create(warehouseProducts);
+    }
+
+    public WarehouseProducts GetSelectedProduct(int id)
+    {
+        Product product = this._repository.Get(id);
+
+        WarehouseProducts warehouseProduct = new WarehouseProducts
+        {
+            WarehouseProduct = product,
+            WarehouseProductId = id,
+            QuantityInStock = 1,
+            ReorderLimit = 1
+        };
+
+        return warehouseProduct;
     }
 }

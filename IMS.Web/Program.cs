@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using IMS.Domain.Common;
 using IMS.Domain.Models;
 using System.Text.Json.Serialization;
+using IMS.Domain.Relationship;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,7 @@ builder.Services.AddIdentityCore<Admin>().AddEntityFrameworkStores<ApplicationDb
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(RepositoryBase<>));
 builder.Services.AddScoped<IRepository<Product>, ProductRepository>();
+builder.Services.AddScoped<IRepository<WarehouseProducts>, WarehouseProductsRepository>();
 
 
 

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using IMS.Domain.DTO.Query;
 using IMS.Domain.Models;
 using IMS.Repository.Implementation;
+using IMS.Domain.Relationship;
 
 namespace IMS.Web.Controllers;
 
@@ -15,12 +16,14 @@ public class ProductsController : Controller
     private readonly IProductService _productService;
     private readonly ICategoryService _categoryService;
     private readonly ISupplierService _supplierService;
+    private readonly IWarehouseService _warehouseService;
 
-    public ProductsController(IProductService productService, ICategoryService categoryService, ISupplierService supplierService)
+    public ProductsController(IProductService productService, ICategoryService categoryService, ISupplierService supplierService, IWarehouseService warehouseService)
     {
         _productService = productService;
         _categoryService = categoryService;
         _supplierService = supplierService;
+        _warehouseService = warehouseService;
     }
 
     public IActionResult Index()
@@ -93,6 +96,30 @@ public class ProductsController : Controller
     {
         _productService.DeleteProduct(id);
         return RedirectToAction("Index");
+    }
+
+    public IActionResult AddProductInWarehouse(int id)
+    {
+        var warehouseProduct = _productService.GetSelectedProduct(id);
+
+        if(warehouseProduct == null) return NotFound();
+
+        var warehouses = this._warehouseService.GetAllWarehouses();
+        ViewBag.Warehouses = new SelectList(warehouses, "Id", "WarehouseName");
+        return View(warehouseProduct);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult AddProductInWarehouse([Bind("WarehouseProductId,WarehouseId,QuantityInStock,ReorderLimit")] WarehouseProducts wp)
+    {
+        if (ModelState.IsValid)
+        {
+            this._productService.AddProductToWarehouse(wp);
+            return RedirectToAction("Index");
+        }
+
+        return BadRequest(ModelState);
     }
 
 }
