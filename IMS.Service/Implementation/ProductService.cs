@@ -68,6 +68,7 @@ public class ProductService : IProductService
             ProductImageUrl = p.ProductImageUrl,
             ProductDescription = p.ProductDescription,
             ProductPrice = p.ProductPrice,
+            ProductSKU = p.ProdctSKU,
             CategoryId = p.ProductCategoryId,
             SupplierId = p.ProductSupplierId
         };

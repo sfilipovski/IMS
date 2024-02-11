@@ -42,8 +42,12 @@
                     </div>
 
                     <div class="card-footer">
-                        @* <a asp-controller="Products" asp-action="AddProductToCard" asp-route-id="@item.Id" class="btn btn-info">Add to Card</a>
-                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary">Edit</a> *@
+                        <form asp-action="Delete"> 
+                            <input type="hidden" asp-for="@prod.ProductId" />
+                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                        </form>
+
+                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@prod.ProductId" class="btn btn-secondary">Edit</a> 
                     </div>
                 </div>
 
