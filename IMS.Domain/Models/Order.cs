@@ -15,5 +15,5 @@ public class Order : BaseEntity
     public string CustomerId { get; set; }
     public Customer Customer { get; set; }
     public Shipment? Shipment { get; set; }
-    public virtual ICollection<OrderProducts> OrderProducts { get; set; }
+    public virtual ICollection<OrderProducts>? OrderProducts { get; set; }
 }

@@ -10,7 +10,6 @@ namespace IMS.Domain.Models;
 public class Supplier : BaseEntity
 {
     public string SupplierName { get; set; }
-    public string SupplierAddress { get; set; }
-    public string SupplierPhone { get; set;}
-    public virtual ICollection<Product> SupplierProducts { get; set; }
+    public string? SupplierAddress { get; set; }
+    public string? SupplierPhone { get; set;}
 }

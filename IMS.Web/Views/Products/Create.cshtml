@@ -1,5 +1,5 @@
-﻿@using IMS.Domain.DTO.Command
-@model CreateProductDto
+﻿@using IMS.Domain.Models
+@model Product
 
 
 @{
@@ -35,8 +35,20 @@
                 <span asp-validation-for="ProductPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProductSKU" class="control-label"></label>
-                <input asp-for="ProductSKU" class="form-control" type="text" />
+                <label asp-for="ProdctSKU" class="control-label"></label>
+                <input asp-for="ProdctSKU" class="form-control" type="text" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Category</label>
+                <select asp-for="ProductCategoryId" class="form-control"
+                        asp-items="ViewBag.Categories"
+                        id="Id"></select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Supplier</label>
+                <select asp-for="ProductSupplierId" class="form-control"
+                        asp-items="ViewBag.Suppliers"
+                        id="Id"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

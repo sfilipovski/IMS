@@ -7,6 +7,7 @@ using IMS.Service.Implementation;
 using Microsoft.EntityFrameworkCore;
 using IMS.Domain.Common;
 using IMS.Domain.Models;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,9 +24,14 @@ builder.Services.AddIdentityCore<Customer>().AddEntityFrameworkStores<Applicatio
 builder.Services.AddIdentityCore<Admin>().AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(RepositoryBase<>));
+builder.Services.AddScoped<IRepository<Product>, ProductRepository>();
+
 
 
 builder.Services.AddTransient<IProductService, ProductService>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddTransient<ISupplierService, SupplierService>();
+builder.Services.AddTransient<IWarehouseService, WarehouseService>();
 
 builder.Services.AddSwaggerGen(opt =>
 {
@@ -43,7 +49,9 @@ builder.Services.AddSwaggerGen(opt =>
     });
 });
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 var app = builder.Build();
 

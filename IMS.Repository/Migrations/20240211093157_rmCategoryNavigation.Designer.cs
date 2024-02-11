@@ -4,6 +4,7 @@ using IMS.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IMS.Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240211093157_rmCategoryNavigation")]
+    partial class rmCategoryNavigation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,15 +109,18 @@ namespace IMS.Repository.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ProdctSKU")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ProductCategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("ProductDescription")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductImageUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductName")
@@ -192,6 +197,7 @@ namespace IMS.Repository.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("SupplierAddress")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SupplierName")
@@ -199,6 +205,7 @@ namespace IMS.Repository.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SupplierPhone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -215,6 +222,7 @@ namespace IMS.Repository.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("WarehouseAddress")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WarehouseCity")
@@ -582,7 +590,7 @@ namespace IMS.Repository.Migrations
                         .HasForeignKey("ProductCategoryId");
 
                     b.HasOne("IMS.Domain.Models.Supplier", "ProductSupplier")
-                        .WithMany()
+                        .WithMany("SupplierProducts")
                         .HasForeignKey("ProductSupplierId");
 
                     b.Navigation("ProductCategory");
@@ -755,6 +763,11 @@ namespace IMS.Repository.Migrations
                     b.Navigation("OrderProducts");
 
                     b.Navigation("WarehouseProducts");
+                });
+
+            modelBuilder.Entity("IMS.Domain.Models.Supplier", b =>
+                {
+                    b.Navigation("SupplierProducts");
                 });
 
             modelBuilder.Entity("IMS.Domain.Models.Warehouse", b =>

@@ -37,17 +37,17 @@ public class ApplicationDbContext : IdentityDbContext
 
         // <-- Product -->
 
-        builder.Entity<Product>()
+        /*builder.Entity<Product>()
             .HasOne(x => x.ProductSupplier)
             .WithMany(x => x.SupplierProducts)
             .HasForeignKey(x => x.ProductSupplierId)
-            .IsRequired(false);
+            .IsRequired(false);*/
 
-        builder.Entity<Product>()
+       /* builder.Entity<Product>()
             .HasOne(x => x.ProductCategory)
             .WithMany(x => x.CategoryProducts)
             .HasForeignKey(x => x.ProductCategoryId)
-            .IsRequired(false);
+            .IsRequired(false);*/
 
         // <-- Order -->
 

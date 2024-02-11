@@ -6,9 +6,9 @@ namespace IMS.Service.Interface;
 
 public interface IProductService
 {
-    List<ProductDto> GetAllProducts();
-    ProductDto GetProductById(int? id);
-    void CreateNewProduct(CreateProductDto product);
-    void UpdateProduct(int id, CreateProductDto product);    
+    List<Product> GetAllProducts();
+    Product GetProductById(int? id);
+    void CreateNewProduct(Product product);
+    void UpdateProduct(int id, Product product);    
     void DeleteProduct(int? id);
 }

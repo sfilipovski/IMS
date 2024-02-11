@@ -1,6 +1,7 @@
 ﻿using IMS.Domain.DTO.Command;
 using IMS.Domain.DTO.Query;
 using IMS.Domain.Models;
+using IMS.Repository.Implementation;
 using IMS.Repository.Interface;
 using IMS.Service.Interface;
 using Microsoft.AspNetCore.Http;
@@ -13,10 +14,12 @@ namespace IMS.Web.Controllers.API
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly ProductRepository productRepository;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, ProductRepository productRepository)
         {
             _productService = productService;
+            this.productRepository = productRepository;
         }
 
         [HttpGet]
@@ -36,15 +39,15 @@ namespace IMS.Web.Controllers.API
         }
 
         [HttpPost]
-        public IActionResult CreateProduct([FromBody] CreateProductDto product)
+        public IActionResult CreateProduct(Product product)
         {
-            _productService.CreateNewProduct(product);
+            productRepository.Create(product);
 
             return Ok(product);
         }
 
         [HttpPut]
-        public IActionResult UpdateProduct(int id, CreateProductDto update)
+        public IActionResult UpdateProduct(int id, Product update)
         {
             _productService.UpdateProduct(id, update);
 
@@ -57,6 +60,12 @@ namespace IMS.Web.Controllers.API
             _productService.DeleteProduct(id);
 
             return NoContent();
+        }
+
+        [HttpGet("getAll")]
+        public ActionResult<List<Product>> GetAll()
+        {
+            return Ok(productRepository.GetAll());
         }
     }
 }

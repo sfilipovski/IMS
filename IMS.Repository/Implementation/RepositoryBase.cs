@@ -17,7 +17,7 @@ public class RepositoryBase<T> : IRepository<T> where T : BaseEntity
 
     public void Create(T entity)
     {
-        if(entity == null)
+        if (entity == null)
         {
             throw new ArgumentNullException("Can't create null entity");
         }

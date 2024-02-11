@@ -11,8 +11,8 @@ namespace IMS.Domain.Models;
 public class Warehouse : BaseEntity
 {
     public string WarehouseName { get; set; }
-    public string WarehouseAddress { get; set; }
+    public string? WarehouseAddress { get; set; }
     public string WarehouseCountry { get; set; }
     public string WarehouseCity { get; set; }
-    public virtual ICollection<WarehouseProducts> WarehouseProducts { get; set; }
+    public virtual ICollection<WarehouseProducts>? WarehouseProducts { get; set; }
 }

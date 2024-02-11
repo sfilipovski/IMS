@@ -1,5 +1,5 @@
-﻿@using IMS.Domain.DTO.Query;
-@model List<ProductDto>;
+﻿@using IMS.Domain.Models;
+@model List<Product>;
 
     
 @{
@@ -39,15 +39,14 @@
 
 
                         <h6>Price: $@prod.ProductPrice</h6>
+                        <h6>Category: @prod.ProductCategory?.CategoryName</h6>
+                        <h6>Category: @prod.ProductSupplier?.SupplierName</h6>
                     </div>
 
                     <div class="card-footer">
-                        <form asp-action="Delete"> 
-                            <input type="hidden" asp-for="@prod.ProductId" />
-                            <button type="submit" class="btn btn-outline-danger">Delete</button>
-                        </form>
+                        <a asp-controller="Products" asp-action="Delete" asp-route-id="@prod.Id" class="btn btn-danger">Delete</a> 
 
-                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@prod.ProductId" class="btn btn-secondary">Edit</a> 
+                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@prod.Id" class="btn btn-secondary">Edit</a> 
                     </div>
                 </div>
 

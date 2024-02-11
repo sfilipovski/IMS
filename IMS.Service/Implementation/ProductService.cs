@@ -9,29 +9,22 @@ namespace IMS.Service.Implementation;
 public class ProductService : IProductService
 {
     private readonly IRepository<Product> _repository;
-    private readonly IRepository<Category> _categoryRepository; 
+    private readonly IRepository<Category> _categoryRepository;
     private readonly IRepository<Supplier> _supplierRepository;
 
-    public ProductService(IRepository<Product> repository, IRepository<Supplier> supplierRepository, IRepository<Category> categoryRepository)
+    public ProductService(IRepository<Product> repository, IRepository<Category> categoryRepository, IRepository<Supplier> supplierRepository)
     {
         _repository = repository;
-        _supplierRepository = supplierRepository;
         _categoryRepository = categoryRepository;
+        _categoryRepository = categoryRepository;
+        _supplierRepository = supplierRepository;
     }
 
-    public void CreateNewProduct(CreateProductDto product)
+    public void CreateNewProduct(Product product)
     {
-        Product p = new Product 
-        {
-            ProdctSKU = product.ProductSKU, 
-            ProductName = product.ProductName , 
-            ProductImageUrl = product.ProductImageUrl,
-            ProductDescription = product.ProductDescription,
-            ProductPrice = product.ProductPrice,
-            ProductCategoryId = product.CategoryId,
-            ProductSupplierId = product.SupplierId
-        };
-        this._repository.Create(p);
+        product.ProductCategory = _categoryRepository.Get(product.ProductCategoryId);
+        product.ProductSupplier = _supplierRepository.Get(product.ProductSupplierId);
+        this._repository.Create(product);
     }
 
     public void DeleteProduct(int? id)
@@ -40,57 +33,28 @@ public class ProductService : IProductService
         this._repository.Delete(product);
     }
 
-    public List<ProductDto> GetAllProducts()
+    public List<Product> GetAllProducts()
     {
-        return this._repository.GetAll().Select(product => new ProductDto
-        {
-            ProductId = product.Id,
-            ProductSKU = product.ProdctSKU,
-            ProductName = product.ProductName,
-            ProductImageUrl = product.ProductImageUrl,
-            ProductDescription = product.ProductDescription,
-            ProductPrice = product.ProductPrice,
-            CategoryId = product.ProductCategoryId,
-            SupplierId = product.ProductSupplierId
-        }).ToList();
+        return this._repository.GetAll().ToList();
     }
 
-    public ProductDto GetProductById(int? id)
+    public Product GetProductById(int? id)
     {
-        Product p = this._repository.Get(id);
-
-        if (p == null) return null;
-
-        ProductDto dto = new ProductDto
-        {
-            ProductId = p.Id,
-            ProductName = p.ProductName,
-            ProductImageUrl = p.ProductImageUrl,
-            ProductDescription = p.ProductDescription,
-            ProductPrice = p.ProductPrice,
-            ProductSKU = p.ProdctSKU,
-            CategoryId = p.ProductCategoryId,
-            SupplierId = p.ProductSupplierId
-        };
-
-        return dto;
+        return _repository.Get(id);
     }
 
-    public void UpdateProduct(int id, CreateProductDto product)
+    public void UpdateProduct(int id, Product product)
     {
-        Product p = _repository.Get(id);
-
-        if (p == null) return;
-
+        var p = _repository.Get(id);
         p.ProductName = product.ProductName;
-        p.ProdctSKU = product.ProductSKU;
+        p.ProductPrice = product.ProductPrice;
+        p.ProdctSKU = product.ProdctSKU;
         p.ProductDescription = product.ProductDescription;
         p.ProductImageUrl = product.ProductImageUrl;
-        p.ProductPrice = product.ProductPrice;
-        p.ProductCategoryId = product.CategoryId;
-        p.ProductSupplierId = product.SupplierId;
-        p.ProductCategory = _categoryRepository.Get(product.CategoryId);
-        p.ProductSupplier = _supplierRepository.Get(product.SupplierId);
+        p.ProductCategoryId = product.ProductCategoryId;
+        p.ProductSupplierId = product.ProductSupplierId;
+        p.ProductCategory = _categoryRepository.Get(p.ProductCategoryId);
+        p.ProductSupplier = _supplierRepository.Get(p.ProductSupplierId);
 
         this._repository.Update(p);
     }
