@@ -9,13 +9,13 @@ public class RepositoryBase<T> : IRepository<T> where T : BaseEntity
     private readonly ApplicationDbContext _context;
     private DbSet<T> entities;
 
-    public RepositoryBase(ApplicationDbContext context, DbSet<T> entities)
+    public RepositoryBase(ApplicationDbContext context)
     {
         _context = context;
         this.entities = _context.Set<T>();
     }
 
-    public T Create(T entity)
+    public void Create(T entity)
     {
         if(entity == null)
         {
@@ -24,11 +24,9 @@ public class RepositoryBase<T> : IRepository<T> where T : BaseEntity
 
         entities.AddAsync(entity);
         _context.SaveChanges();
-
-        return entity;
     }
 
-    public T Delete(T entity)
+    public void Delete(T entity)
     {
         if (entity == null)
         {
@@ -37,11 +35,9 @@ public class RepositoryBase<T> : IRepository<T> where T : BaseEntity
 
         entities.Remove(entity);
         _context.SaveChanges();
-
-        return entity;
     }
 
-    public T Get(Guid id)
+    public T Get(int? id)
     {
         return entities.SingleOrDefault(x => x.Id == id);
     }
@@ -51,7 +47,7 @@ public class RepositoryBase<T> : IRepository<T> where T : BaseEntity
         return entities.ToList();
     }
 
-    public T Update(T entity)
+    public void Update(T entity)
     {
         if (entity == null)
         {
@@ -60,7 +56,5 @@ public class RepositoryBase<T> : IRepository<T> where T : BaseEntity
 
         entities.Update(entity);
         _context.SaveChanges();
-
-        return entity;
     }
 }

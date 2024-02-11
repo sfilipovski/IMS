@@ -24,9 +24,11 @@ namespace IMS.Repository.Migrations
 
             modelBuilder.Entity("IMS.Domain.Models.Cart", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("CustomerId")
                         .IsRequired()
@@ -42,9 +44,11 @@ namespace IMS.Repository.Migrations
 
             modelBuilder.Entity("IMS.Domain.Models.Category", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("CategoryDescription")
                         .IsRequired()
@@ -67,9 +71,11 @@ namespace IMS.Repository.Migrations
 
             modelBuilder.Entity("IMS.Domain.Models.Order", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("CustomerId")
                         .IsRequired()
@@ -94,16 +100,18 @@ namespace IMS.Repository.Migrations
 
             modelBuilder.Entity("IMS.Domain.Models.Product", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ProdctSKU")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ProductCategoryId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("ProductCategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ProductDescription")
                         .IsRequired()
@@ -120,8 +128,8 @@ namespace IMS.Repository.Migrations
                     b.Property<double>("ProductPrice")
                         .HasColumnType("float");
 
-                    b.Property<Guid?>("ProductSupplierId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("ProductSupplierId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -134,9 +142,11 @@ namespace IMS.Repository.Migrations
 
             modelBuilder.Entity("IMS.Domain.Models.Shipment", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ShipmentAddress")
                         .IsRequired()
@@ -165,8 +175,8 @@ namespace IMS.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ShippingOrderId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ShippingOrderId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -178,9 +188,11 @@ namespace IMS.Repository.Migrations
 
             modelBuilder.Entity("IMS.Domain.Models.Supplier", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("SupplierAddress")
                         .IsRequired()
@@ -201,9 +213,11 @@ namespace IMS.Repository.Migrations
 
             modelBuilder.Entity("IMS.Domain.Models.Warehouse", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("WarehouseAddress")
                         .IsRequired()
@@ -228,18 +242,20 @@ namespace IMS.Repository.Migrations
 
             modelBuilder.Entity("IMS.Domain.Relationship.CartProducts", b =>
                 {
-                    b.Property<Guid>("CartId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("CartProductId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("CartProductId")
+                        .HasColumnType("int");
 
                     b.Property<int>("CartProductQuantity")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.HasKey("CartId", "CartProductId");
 
@@ -250,15 +266,17 @@ namespace IMS.Repository.Migrations
 
             modelBuilder.Entity("IMS.Domain.Relationship.OrderProducts", b =>
                 {
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("OrderProductId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("OrderProductId")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("OrderProductQuantity")
                         .HasColumnType("int");
@@ -272,15 +290,17 @@ namespace IMS.Repository.Migrations
 
             modelBuilder.Entity("IMS.Domain.Relationship.WarehouseProducts", b =>
                 {
-                    b.Property<Guid>("WarehouseId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("WarehouseProductId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("WarehouseProductId")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("QuantityInStock")
                         .HasColumnType("int");

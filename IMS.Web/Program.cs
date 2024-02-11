@@ -1,7 +1,12 @@
 using IMS.Domain.Identity;
 using IMS.Repository;
-using Microsoft.AspNetCore.Identity;
+using IMS.Repository.Implementation;
+using IMS.Repository.Interface;
+using IMS.Service.Interface;
+using IMS.Service.Implementation;
 using Microsoft.EntityFrameworkCore;
+using IMS.Domain.Common;
+using IMS.Domain.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +22,27 @@ builder.Services.AddDefaultIdentity<Account>(options => options.SignIn.RequireCo
 builder.Services.AddIdentityCore<Customer>().AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddIdentityCore<Admin>().AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddScoped(typeof(IRepository<>), typeof(RepositoryBase<>));
+
+
+builder.Services.AddTransient<IProductService, ProductService>();
+
+builder.Services.AddSwaggerGen(opt =>
+{
+    opt.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Testing Api",
+        Description = "Testing Endpoints",
+
+        Contact = new Microsoft.OpenApi.Models.OpenApiContact
+        {
+            Name = "S.Filipovski",
+            Url = new Uri("https://www.github.com/sfilipovski")
+        }
+    });
+});
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -24,7 +50,14 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseSwagger();
+    app.UseSwaggerUI(opt =>
+    {
+        opt.SwaggerEndpoint("swagger/v1/swagger.json", "Testing API");
+        opt.RoutePrefix = string.Empty;
+    });
     app.UseMigrationsEndPoint();
+    
 }
 else
 {

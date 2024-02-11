@@ -14,7 +14,7 @@ public class Product : BaseEntity
     public Category? ProductCategory { get; set; }
     public int? ProductSupplierId { get; set; }
     public Supplier? ProductSupplier { get; set; }
-    public virtual ICollection<CartProducts> CartProducts { get; set; }
-    public virtual ICollection<OrderProducts> OrderProducts { get; set; }
-    public virtual ICollection<WarehouseProducts> WarehouseProducts { get; set; }
+    public virtual ICollection<CartProducts>? CartProducts { get; set; }
+    public virtual ICollection<OrderProducts>? OrderProducts { get; set; }
+    public virtual ICollection<WarehouseProducts>? WarehouseProducts { get; set; }
 }

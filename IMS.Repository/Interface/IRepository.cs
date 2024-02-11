@@ -5,9 +5,9 @@ namespace IMS.Repository.Interface;
 public interface IRepository<T> where T : BaseEntity
 {
     ICollection<T> GetAll();
-    T Get(int id);
-    Task<T> Create(T entity);
-    T Update(T entity);
-    T Delete(T entity);
+    T Get(int? id);
+    void Create(T entity);
+    void Update(T entity);
+    void Delete(T entity);
 
 }

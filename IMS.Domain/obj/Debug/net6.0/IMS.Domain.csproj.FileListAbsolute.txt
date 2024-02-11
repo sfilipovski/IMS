@@ -10,3 +10,4 @@ C:\Users\pc\source\repos\IMS\IMS.Domain\obj\Debug\net6.0\refint\IMS.Domain.dll
 C:\Users\pc\source\repos\IMS\IMS.Domain\obj\Debug\net6.0\IMS.Domain.pdb
 C:\Users\pc\source\repos\IMS\IMS.Domain\obj\Debug\net6.0\ref\IMS.Domain.dll
 C:\Users\pc\source\repos\IMS\IMS.Domain\obj\Debug\net6.0\IMS.Domain.csproj.AssemblyReference.cache
+C:\Users\pc\source\repos\IMS\IMS.Domain\obj\Debug\net6.0\IMS.Domain.sourcelink.json

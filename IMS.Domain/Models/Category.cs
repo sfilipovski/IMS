@@ -17,5 +17,5 @@ public class Category : BaseEntity
     public string CategoryType { get; set; }
     [MaxLength(255)]
     public string CategoryDescription { get; set; }
-    public virtual ICollection<Product> CategoryProducts { get; set; }
+    public virtual ICollection<Product>? CategoryProducts { get; set; }
 }

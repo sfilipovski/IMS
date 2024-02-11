@@ -52,7 +52,8 @@ namespace IMS.Repository.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CategoryType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryDescription = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
@@ -66,7 +67,8 @@ namespace IMS.Repository.Migrations
                 name: "Suppliers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     SupplierName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SupplierAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SupplierPhone = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -80,7 +82,8 @@ namespace IMS.Repository.Migrations
                 name: "Warehouses",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     WarehouseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     WarehouseAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     WarehouseCountry = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -217,14 +220,15 @@ namespace IMS.Repository.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProdctSKU = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductPrice = table.Column<double>(type: "float", nullable: false),
-                    ProductCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    ProductSupplierId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    ProductCategoryId = table.Column<int>(type: "int", nullable: true),
+                    ProductSupplierId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -282,11 +286,12 @@ namespace IMS.Repository.Migrations
                 name: "WarehouseProducts",
                 columns: table => new
                 {
-                    WarehouseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    WarehouseProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    WarehouseId = table.Column<int>(type: "int", nullable: false),
+                    WarehouseProductId = table.Column<int>(type: "int", nullable: false),
                     QuantityInStock = table.Column<int>(type: "int", nullable: false),
                     ReorderLimit = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
@@ -309,7 +314,8 @@ namespace IMS.Repository.Migrations
                 name: "Carts",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -327,7 +333,8 @@ namespace IMS.Repository.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     OrderDateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     OrderStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OrderTotalPrice = table.Column<double>(type: "float", nullable: false),
@@ -348,10 +355,11 @@ namespace IMS.Repository.Migrations
                 name: "CartProducts",
                 columns: table => new
                 {
-                    CartId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CartProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CartId = table.Column<int>(type: "int", nullable: false),
+                    CartProductId = table.Column<int>(type: "int", nullable: false),
                     CartProductQuantity = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
@@ -374,10 +382,11 @@ namespace IMS.Repository.Migrations
                 name: "OrderProducts",
                 columns: table => new
                 {
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    OrderProductId = table.Column<int>(type: "int", nullable: false),
                     OrderProductQuantity = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
@@ -400,7 +409,8 @@ namespace IMS.Repository.Migrations
                 name: "Shipments",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ShipmentCompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ShipmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ShipmentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -408,7 +418,7 @@ namespace IMS.Repository.Migrations
                     ShipmentAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ShipmentCity = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ShipmentCountry = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ShippingOrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ShippingOrderId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

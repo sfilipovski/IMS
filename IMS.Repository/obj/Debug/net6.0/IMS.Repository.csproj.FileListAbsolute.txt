@@ -15,3 +15,4 @@ C:\Users\pc\source\repos\IMS\IMS.Repository\obj\Debug\net6.0\IMS.Repository.cspr
 C:\Users\pc\source\repos\IMS\IMS.Repository\obj\Debug\net6.0\IMS.Repository.csproj.CopyComplete
 C:\Users\pc\source\repos\IMS\IMS.Repository\bin\Debug\net6.0\IMS.Repository.runtimeconfig.json
 C:\Users\pc\source\repos\IMS\IMS.Repository\obj\Debug\net6.0\IMS.Repository.genruntimeconfig.cache
+C:\Users\pc\source\repos\IMS\IMS.Repository\obj\Debug\net6.0\IMS.Repository.sourcelink.json

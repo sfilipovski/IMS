@@ -1,0 +1,62 @@
+﻿@using IMS.Domain.DTO.Query;
+@model List<ProductDto>;
+
+    
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container ">
+
+        <div class="row w-50">
+            <div class="col">
+                <a class="btn btn-primary" asp-action="Create">Add new Product</a>
+            </div>
+        </div>
+
+        @{
+            var counter = 0;
+        }
+
+        @foreach(var prod in Model)
+        {
+
+            if(counter%4==0)
+            { 
+                @:<div class="row text-center mb-5"> 
+            }
+
+            <div class="col-3">
+
+                <div class="card" style="width: 18rem; height: 30rem;">
+                    <img class="card-img-top" src="@prod.ProductImageUrl" style="height: 50%;" alt="Image for product!">
+
+                    <div class="card-body">
+                        <h3 class="card-title">@prod.ProductName</h3>
+                        <p class="card-text">@prod.ProductDescription</p>
+
+
+                        <h6>Price: $@prod.ProductPrice</h6>
+                    </div>
+
+                    <div class="card-footer">
+                        @* <a asp-controller="Products" asp-action="AddProductToCard" asp-route-id="@item.Id" class="btn btn-info">Add to Card</a>
+                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary">Edit</a> *@
+                    </div>
+                </div>
+
+            </div>
+
+
+            if(counter%4==3)
+            { 
+                @:</div> 
+            }
+
+            
+            counter++;
+        }
+
+</div>
