@@ -19,8 +19,7 @@ namespace IMS.Web.Controllers
 
         public IActionResult Register()
         {
-            UserRegistrationDto register = new UserRegistrationDto();
-            return View(register);
+            return View();
         }
 
         [HttpPost]
@@ -42,7 +41,6 @@ namespace IMS.Web.Controllers
                     Country = register.Country,
                     UserName = register.Username,
                     Email = register.Email,
-                    PasswordHash = register.Password,
                     CustomerCart = new Domain.Models.Cart()
                 };
 
@@ -61,17 +59,17 @@ namespace IMS.Web.Controllers
 
         public IActionResult Login()
         {
-            var login = new UserLoginDto();
-            return View(login);
+            UserLoginDto dto = new UserLoginDto();
+            return View(dto);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LoginAsync(UserLoginDto login)
+        public async Task<IActionResult> Login(UserLoginDto login)
         {
             if (ModelState.IsValid)
             {
-                var user = _userManager.Users.SingleOrDefault(x => x.UserName == login.Username);
+                var user = await _userManager.FindByEmailAsync(login.Email);
 
                 if (user == null) { return View(login); };
 
@@ -79,7 +77,7 @@ namespace IMS.Web.Controllers
 
                 if (pw == false) return View(login);
 
-                var result = await _signInManager.PasswordSignInAsync(login.Username, login.Password, true, true);
+                var result = await _signInManager.PasswordSignInAsync(user, login.Password, true, true);
 
                 if (result.Succeeded)
                 {

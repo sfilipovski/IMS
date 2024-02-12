@@ -6,9 +6,9 @@ public class UserLoginDto
 {
     [Required(ErrorMessage = "Username is required")]
     [EmailAddress(ErrorMessage = "Username email address")]
-    public string? Username { get; set; }
+    public string Email { get; set; }
 
     [Required(ErrorMessage = "Password is required")]
     [DataType(DataType.Password)]
-    public string? Password { get; set; }
+    public string Password { get; set; }
 }
