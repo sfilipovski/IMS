@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace IMS.Repository.Implementation;
 
-public class WarehouseProductsRepository : IRepository<WarehouseProducts>
+public class WarehouseProductsRepository : IWarehouseProductsRepository
 {
 
     private readonly ApplicationDbContext applicationDbContext;
@@ -33,7 +33,8 @@ public class WarehouseProductsRepository : IRepository<WarehouseProducts>
 
     public WarehouseProducts Get(int? id)
     {
-        return applicationDbContext.WarehouseProducts.SingleOrDefault(x => x.Id == id);
+        return applicationDbContext.WarehouseProducts
+            .SingleOrDefault(x => x.Id == id);
     }
 
     public ICollection<WarehouseProducts> GetAll()
@@ -45,8 +46,51 @@ public class WarehouseProductsRepository : IRepository<WarehouseProducts>
             .ToList();
     }
 
+    public List<WarehouseProducts> GetByProductId(int productId)
+    {
+        return this.applicationDbContext.WarehouseProducts.Where(x => x.WarehouseProductId == productId).ToList();
+    }
+
+    public WarehouseProducts GetByProductIdAndWarehouseId(int productId, int? warehouseId)
+    {
+        return this.applicationDbContext.WarehouseProducts.FirstOrDefault(x => x.WarehouseId == warehouseId && x.WarehouseProductId == productId);
+    }
+
+    public List<WarehouseProducts> GetByWarehouseId(int warehouseId)
+    {
+        return this.applicationDbContext.WarehouseProducts.Where(x => x.WarehouseId == warehouseId).ToList();
+    }
+
+    public bool ReorderQuantity(int? warehouseId, int productId, int quantity)
+    {
+        var wp = this.GetByProductIdAndWarehouseId(productId, warehouseId);
+
+        if (wp == null) return false;
+
+        wp.QuantityInStock += quantity;
+        applicationDbContext.SaveChanges();
+
+        return true;
+    }
+
     public void Update(WarehouseProducts entity)
     {
         applicationDbContext.Update(entity);
+        applicationDbContext.SaveChanges();
+    }
+
+    public bool UpdateQuantity(int? warehouseId, int productId, int quantity)
+    {
+        var wp = this.GetByProductIdAndWarehouseId(productId, warehouseId);
+        if (wp == null) return false;
+
+        if (wp.QuantityInStock > quantity)
+        {
+            wp.QuantityInStock -= quantity;
+            applicationDbContext.SaveChanges();
+            return true;
+        }
+        
+        return false;
     }
 }

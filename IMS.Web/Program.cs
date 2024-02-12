@@ -26,7 +26,10 @@ builder.Services.AddIdentityCore<Admin>().AddEntityFrameworkStores<ApplicationDb
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(RepositoryBase<>));
 builder.Services.AddScoped<IRepository<Product>, ProductRepository>();
-builder.Services.AddScoped<IRepository<WarehouseProducts>, WarehouseProductsRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IWarehouseProductsRepository, WarehouseProductsRepository >();
+builder.Services.AddScoped< ICartProductsRepository, CartProductsRepository >();
 
 
 
@@ -34,6 +37,7 @@ builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddTransient<ISupplierService, SupplierService>();
 builder.Services.AddTransient<IWarehouseService, WarehouseService>();
+builder.Services.AddTransient<ICartService, CartService>();
 
 builder.Services.AddSwaggerGen(opt =>
 {

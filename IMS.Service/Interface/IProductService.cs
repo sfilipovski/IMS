@@ -14,4 +14,7 @@ public interface IProductService
     void DeleteProduct(int? id);
     void AddProductToWarehouse(WarehouseProducts wp);
     WarehouseProducts GetSelectedProduct(int id);
+    List<Warehouse> GetWarehousesWithProductId(int productId);
+    AddCartProductDto GetCartProduct(int id);
+    bool AddCartProduct(AddCartProductDto cartProduct, string customerId);
 }

@@ -1,5 +1,6 @@
 ﻿using IMS.Domain.DTO.Command;
 using IMS.Domain.Identity;
+using IMS.Service.Interface;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -10,11 +11,13 @@ namespace IMS.Web.Controllers
     {
         private readonly UserManager<Account> _userManager;
         private readonly SignInManager<Account> _signInManager;
+        private readonly ICartService _cartService;
 
-        public AccountController(UserManager<Account> userManager, SignInManager<Account> signInManager)
+        public AccountController(UserManager<Account> userManager, SignInManager<Account> signInManager, ICartService cartService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _cartService = cartService;
         }
 
         public IActionResult Register()
@@ -95,6 +98,17 @@ namespace IMS.Web.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
+        }
+
+        public IActionResult Cart(string id)
+        {
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            if (user == null) RedirectToAction("Login");
+
+            var cart = this._cartService.GetActiveUserCart(user);
+
+            return View(this._cartService.GetCartProducts(cart.Id));
         }
     }
 }

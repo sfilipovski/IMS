@@ -1,4 +1,5 @@
-﻿using IMS.Domain.Models;
+﻿using IMS.Domain.DTO.Command;
+using IMS.Domain.Models;
 using IMS.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -78,4 +79,35 @@ public class WarehousesController : Controller
     {
         return View(this._warehouseService.GetAllWarehouseProducts());
     }
+
+    public IActionResult Reorder(int id)
+    {
+        var wp = this._warehouseService.GetById(id);
+        if (wp == null) return NotFound(wp);
+
+        ReorderQuantityDto dto = new ReorderQuantityDto
+        {
+            Id = wp.Id,
+            ProductId = wp.WarehouseProductId,
+            WarehouseId = wp.WarehouseId,
+            ReorderQuantity = 1
+        };
+
+        return View(dto);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Reorder(ReorderQuantityDto dto)
+    {
+        if (ModelState.IsValid)
+        {
+            if(this._warehouseService.ReorderQuantity(dto.WarehouseId, dto.ProductId, dto.ReorderQuantity))
+                return RedirectToAction("GetAllWarehouseProducts");
+
+            return View(dto);
+        }
+        return View(ModelState);
+    }
+
 }

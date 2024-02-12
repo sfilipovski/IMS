@@ -8,9 +8,9 @@ namespace IMS.Service.Implementation;
 public class WarehouseService : IWarehouseService
 {
     private readonly IRepository<Warehouse> _warehouseRepository;
-    private readonly IRepository<WarehouseProducts> _warehouseProductsRepository;
+    private readonly IWarehouseProductsRepository _warehouseProductsRepository;
 
-    public WarehouseService(IRepository<Warehouse> warehouseRepository, IRepository<WarehouseProducts> warehouseProductsRepository)
+    public WarehouseService(IRepository<Warehouse> warehouseRepository, IWarehouseProductsRepository warehouseProductsRepository)
     {
         _warehouseRepository = warehouseRepository;
         _warehouseProductsRepository = warehouseProductsRepository;
@@ -51,5 +51,19 @@ public class WarehouseService : IWarehouseService
         w.WarehouseCountry = newWarehouse.WarehouseCountry;
 
         this._warehouseRepository.Update(w);
+    }
+
+    public bool ReorderQuantity(int? warehouseId, int productId, int quantity)
+    {
+        var result = this._warehouseProductsRepository.ReorderQuantity(warehouseId, productId, quantity);
+
+        if (result) return true;
+
+        return false;
+    }
+
+    public WarehouseProducts GetById(int id)
+    {
+        return this._warehouseProductsRepository.Get(id);
     }
 }

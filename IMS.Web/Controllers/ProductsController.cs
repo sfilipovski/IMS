@@ -2,10 +2,9 @@
 using IMS.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using IMS.Domain.DTO.Query;
 using IMS.Domain.Models;
-using IMS.Repository.Implementation;
 using IMS.Domain.Relationship;
+using System.Security.Claims;
 
 namespace IMS.Web.Controllers;
 
@@ -122,4 +121,32 @@ public class ProductsController : Controller
         return BadRequest(ModelState);
     }
 
+    public IActionResult AddCartProduct(int id)
+    {
+        var cartProduct = _productService.GetCartProduct(id);
+        
+        if (cartProduct == null) return NotFound(cartProduct);
+
+        var warehouses = this._productService.GetWarehousesWithProductId(cartProduct.ProductId);
+        ViewBag.Warehouses = new SelectList(warehouses, "Id", "WarehouseName");
+
+        return View(cartProduct);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult AddCartProduct([Bind("ProductId,WarehouseId,Quantity")]AddCartProductDto cp)
+    {
+        if (ModelState.IsValid)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var result = _productService.AddCartProduct(cp, userId);
+
+            if (result) return RedirectToAction("Index");
+
+            return View(cp);
+        }
+        return BadRequest(ModelState);
+    }
 }

@@ -12,8 +12,11 @@ public interface IWarehouseService
 {
     List<Warehouse> GetAllWarehouses();
     List<WarehouseProducts> GetAllWarehouseProducts();
-    Warehouse GetWarehouseById(int? id); 
+    Warehouse GetWarehouseById(int? id);
+    WarehouseProducts GetById(int id);
     void CreateNewWarehouse(Warehouse newWarehouse);
     void UpdateWarehouse(int id, Warehouse newWarehouse);
     void DeleteWarehouse(int id);   
+    bool ReorderQuantity(int? warehouseId, int productId, int quantity);
+
 }
