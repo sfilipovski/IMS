@@ -8,7 +8,6 @@ using System.Security.Claims;
 
 namespace IMS.Web.Controllers;
 
-
 public class ProductsController : Controller
 {
 
@@ -28,7 +27,13 @@ public class ProductsController : Controller
     public IActionResult Index()
     {
         var products = _productService.GetAllProducts();
-        return View(products);
+
+        return View("Demo",products);
+    }
+
+    public IActionResult Demo()
+    {
+        return View(_productService.GetAllProducts());
     }
 
     public IActionResult Create()
@@ -99,7 +104,7 @@ public class ProductsController : Controller
 
     public IActionResult AddProductInWarehouse(int id)
     {
-        var warehouseProduct = _productService.GetSelectedProduct(id);
+            var warehouseProduct = _productService.GetSelectedProduct(id);
 
         if(warehouseProduct == null) return NotFound();
 

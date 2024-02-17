@@ -1,0 +1,100 @@
+﻿@using System.Security.Claims
+@using IMS.Domain.Identity
+@using Microsoft.AspNetCore.Identity
+@model List<IMS.Domain.Models.Product>
+
+    @inject SignInManager<Account> SignInManager
+@inject UserManager<Account> UserManager
+
+@{
+    ViewData["Title"] = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ 
+
+<section>
+     
+    <div class="container py-5">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            @if (User.FindFirst("UserRole").Value == "Admin")
+            {
+                <div class="row justify-content-center  mb-3">
+                    <div class="col ms-20">
+
+                        <a class="btn btn-primary ms-20 mb-3" asp-action="Create">Add new Product</a>
+                    </div>
+                </div>
+            }
+        }
+        @foreach(var product in Model){
+        <div class="row justify-content-center mb-3">
+            <div class="col-md-12 col-xl-10">
+                <div class="card shadow-0 border rounded-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                                <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                    <img src="@product.ProductImageUrl"
+                                         class="w-100" />
+                                    <a href="#!">
+                                        <div class="hover-overlay">
+                                            <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xl-6">
+                                <a asp-action="Edit" asp-controller="Products" asp-route-id="@product.Id" class="link-dark fw-bold h3">@product.ProductName</a>
+                                <div class="d-flex flex-row">
+                                    
+                                    <span>SKU: @product.ProdctSKU</span>
+                                </div>
+                                <div class="mt-1 mb-0 text-muted small">
+                                        @if (product.ProductCategory!=null){
+                                    <span>Category: @product.ProductCategory.CategoryName</span>
+                                        }
+                                </div>
+                                <div class="mb-2 text-muted small">
+                                        @if (product.ProductSupplier!=null){
+                                    <span>Supplier: @product.ProductSupplier.SupplierName</span>
+                                        }
+                                </div>
+                                <p class="text-truncate mb-4 mb-md-0">
+                                    @product.ProductDescription
+                                </p>
+                            </div>
+                            <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                                <div class="d-flex flex-row align-items-center mb-1">
+                                        <span class="text-decoration-none mb-1 me-1 h4">Price:</span><h4 class="mb-1 ms-2 fw-bold me-1 fst-italic">$@product.ProductPrice</h4>
+                                </div>
+                                <div class="d-flex flex-column mt-4">
+                                        @if (SignInManager.IsSignedIn(User))
+                                        {
+                                            if (User.FindFirst("UserRole").Value == "Customer")
+                                            {
+                                                <a asp-action="AddCartProduct" asp-controller="Products" asp-route-id="@product.Id" class="btn btn-outline-success btn-sm" type="button">Add to Cart</a>
+                                            }
+
+
+                                            @if (User.FindFirst("UserRole").Value == "Admin")
+                                            {
+                                                <a asp-action="AddProductInWarehouse" asp-controller="Products" asp-route-id="@product.Id" class="btn btn-outline-primary btn-sm mt-2" type="button">
+                                                    Add to Warehouse
+                                                </a>
+                                                <a asp-action="Delete" asp-controller="Products" asp-route-id="@product.Id" class="btn btn-outline-danger btn-sm mt-2" type="button">Delete</a>
+
+                                            }
+
+                                        }
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</section>

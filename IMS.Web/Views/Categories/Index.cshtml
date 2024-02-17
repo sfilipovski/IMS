@@ -1,15 +1,28 @@
-﻿@model IEnumerable<IMS.Domain.Models.Category>
+﻿@using IMS.Domain.Identity
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IMS.Domain.Models.Category>
+
+   @inject SignInManager<Account> SignInManager
+@inject UserManager<Account> UserManager
+
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1 class="display-6 fw-bolder mb-4">Categories</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (SignInManager.IsSignedIn(User))
+{
+    @if (User.FindFirst("UserRole").Value == "Admin")
+    {
+        <p>
+            <a asp-action="Create" class="btn btn-primary">Create New Category</a>
+        </p>
+    }
+
+}
 <table class="table">
     <thead>
         <tr>
@@ -37,10 +50,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CategoryDescription)
             </td>
+
             <td>
-                    <a asp-action="Edit" asp-controller="Categories"  asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-controller="Categories" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-controller="Categories" asp-route-id="@item.Id">Delete</a>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        @if(User.FindFirst("UserRole").Value == "Admin")
+                        {
+                            <a asp-action="Edit" asp-controller="Categories" class="text-decoration-none" asp-route-id="@item.Id">Edit •</a>
+                            <a asp-action="Details" asp-controller="Categories" class="text-decoration-none" asp-route-id="@item.Id">Details •</a>
+                            <a asp-action="Delete" asp-controller="Categories" class="text-decoration-none" asp-route-id="@item.Id">Delete</a>
+                        }
+                    }
+                    
             </td>
         </tr>
 }

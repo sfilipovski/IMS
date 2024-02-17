@@ -1,0 +1,33 @@
+﻿html, body {
+    margin: 0px;
+    height: 90vh;
+    overflow: auto;
+    background-color: #E1EAF0;
+    font-family: 'Poppins';
+    z-index: -1;
+}
+
+.box {
+    height: 100%;
+    background-color: white;
+    margin: 3% 4% 0 4%;
+}
+
+.image {
+    background-image: url(/images/luxa.org-opacity-changed-isometric-projection-warehouse-management-system-royalty-free-warehouse-eb0f0452679e211547d7a1af68897b7b.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: 50%;
+    height: 100%;
+}
+
+a {
+    width: 200px;
+}
+
+.square {
+    height: 30px;
+    width: 30px;
+    background-color: #94FCF6;
+}

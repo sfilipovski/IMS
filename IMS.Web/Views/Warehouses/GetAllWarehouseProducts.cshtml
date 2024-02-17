@@ -1,17 +1,14 @@
 ﻿@model IEnumerable<IMS.Domain.Relationship.WarehouseProducts>
 
 @{
-    ViewData["Title"] = "GetAllWarehouseProducts";
+    ViewData["Title"] = "All Warehouse Products";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>GetAllWarehouseProducts</h1>
+<h1 class="display-5 fw-bolder mb-4">All Warehouse Products</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
-    <thead>
+    <thead class="fs-6">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Warehouse)
@@ -24,9 +21,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ReorderLimit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th></th>
         </tr>
@@ -46,13 +40,8 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ReorderLimit)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) |
+            <td class="text-decoration-none">
+                    @Html.ActionLink("Delete Product", "DeleteProduct", new { id = item.Id }) •
                 @if(item.QuantityInStock < item.ReorderLimit){
                 @Html.ActionLink("Reorder", "Reorder", new {  id=item.Id  }) 
                 }

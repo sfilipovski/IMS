@@ -33,14 +33,18 @@ public class ProductRepository : IRepository<Product>
 
     public ICollection<Product> GetAll()
     {
-        return applicationDbContext.Products.Include(x => x.ProductCategory).Include(x => x.ProductSupplier).AsNoTracking().ToList();
+        return applicationDbContext.Products
+            .AsNoTracking()
+            .Include(x => x.ProductCategory)
+            .Include(x => x.ProductSupplier)
+            .ToList();
     }
 
 
     public void Update(Product entity)
     {
         //entity.ProductCategory = applicationDbContext.Categories.FirstOrDefault(x => x.Id == entity.ProductCategoryId);
-        applicationDbContext.Update(entity);
+        applicationDbContext.Update(entity).Property(x => x.Id).IsModified = false;
         applicationDbContext.SaveChanges();
     }
 }

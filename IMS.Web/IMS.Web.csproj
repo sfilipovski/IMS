@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\css\main.css" />
+    <None Include="wwwroot\images\luxa.org-opacity-changed-isometric-projection-warehouse-management-system-royalty-free-warehouse-eb0f0452679e211547d7a1af68897b7b.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.24" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.24" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.24" />
@@ -26,6 +31,10 @@
     <ProjectReference Include="..\IMS.Domain\IMS.Domain.csproj" />
     <ProjectReference Include="..\IMS.Repository\IMS.Repository.csproj" />
     <ProjectReference Include="..\IMS.Service\IMS.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Content\Images\" />
   </ItemGroup>
 
 </Project>

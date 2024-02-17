@@ -78,7 +78,6 @@ namespace IMS.Repository.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("CustomerId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("OrderDateCreated")
@@ -236,6 +235,12 @@ namespace IMS.Repository.Migrations
 
             modelBuilder.Entity("IMS.Domain.Relationship.CartProducts", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
                     b.Property<int>("CartId")
                         .HasColumnType("int");
 
@@ -245,13 +250,9 @@ namespace IMS.Repository.Migrations
                     b.Property<int>("CartProductQuantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasKey("Id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.HasKey("CartId", "CartProductId");
+                    b.HasIndex("CartId");
 
                     b.HasIndex("CartProductId");
 
@@ -260,22 +261,24 @@ namespace IMS.Repository.Migrations
 
             modelBuilder.Entity("IMS.Domain.Relationship.OrderProducts", b =>
                 {
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrderProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderProductId")
+                        .HasColumnType("int");
+
                     b.Property<int>("OrderProductQuantity")
                         .HasColumnType("int");
 
-                    b.HasKey("OrderId", "OrderProductId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
 
                     b.HasIndex("OrderProductId");
 
@@ -284,12 +287,6 @@ namespace IMS.Repository.Migrations
 
             modelBuilder.Entity("IMS.Domain.Relationship.WarehouseProducts", b =>
                 {
-                    b.Property<int>("WarehouseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WarehouseProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
@@ -302,7 +299,15 @@ namespace IMS.Repository.Migrations
                     b.Property<int>("ReorderLimit")
                         .HasColumnType("int");
 
-                    b.HasKey("WarehouseId", "WarehouseProductId");
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WarehouseProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WarehouseId");
 
                     b.HasIndex("WarehouseProductId");
 
@@ -373,6 +378,10 @@ namespace IMS.Repository.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -424,6 +433,8 @@ namespace IMS.Repository.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -511,14 +522,14 @@ namespace IMS.Repository.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.ToTable("Accounts", (string)null);
+                    b.HasDiscriminator().HasValue("Account");
                 });
 
             modelBuilder.Entity("IMS.Domain.Identity.Admin", b =>
                 {
                     b.HasBaseType("IMS.Domain.Identity.Account");
 
-                    b.ToTable("Admins", (string)null);
+                    b.HasDiscriminator().HasValue("Admin");
                 });
 
             modelBuilder.Entity("IMS.Domain.Identity.Customer", b =>
@@ -550,7 +561,7 @@ namespace IMS.Repository.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.ToTable("Customers", (string)null);
+                    b.HasDiscriminator().HasValue("Customer");
                 });
 
             modelBuilder.Entity("IMS.Domain.Models.Cart", b =>
@@ -567,10 +578,8 @@ namespace IMS.Repository.Migrations
             modelBuilder.Entity("IMS.Domain.Models.Order", b =>
                 {
                     b.HasOne("IMS.Domain.Identity.Customer", "Customer")
-                        .WithMany("CustomerOrders")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
 
                     b.Navigation("Customer");
                 });
@@ -709,33 +718,6 @@ namespace IMS.Repository.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("IMS.Domain.Identity.Account", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                        .WithOne()
-                        .HasForeignKey("IMS.Domain.Identity.Account", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("IMS.Domain.Identity.Admin", b =>
-                {
-                    b.HasOne("IMS.Domain.Identity.Account", null)
-                        .WithOne()
-                        .HasForeignKey("IMS.Domain.Identity.Admin", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("IMS.Domain.Identity.Customer", b =>
-                {
-                    b.HasOne("IMS.Domain.Identity.Account", null)
-                        .WithOne()
-                        .HasForeignKey("IMS.Domain.Identity.Customer", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("IMS.Domain.Models.Cart", b =>
                 {
                     b.Navigation("CartProducts");
@@ -766,8 +748,6 @@ namespace IMS.Repository.Migrations
                 {
                     b.Navigation("CustomerCart")
                         .IsRequired();
-
-                    b.Navigation("CustomerOrders");
                 });
 #pragma warning restore 612, 618
         }

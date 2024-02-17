@@ -44,7 +44,7 @@ public class RepositoryBase<T> : IRepository<T> where T : BaseEntity
 
     public ICollection<T> GetAll()
     {
-        return entities.ToList();
+        return entities.AsNoTracking().ToList();
     }
 
     public void Update(T entity)

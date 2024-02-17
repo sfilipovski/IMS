@@ -1,15 +1,27 @@
-﻿@model IEnumerable<IMS.Domain.Models.Supplier>
+﻿@using IMS.Domain.Identity
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IMS.Domain.Models.Supplier>
+   @inject SignInManager<Account> SignInManager
+@inject UserManager<Account> UserManager
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1 class="display-5 mb-3">Suppliers</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (SignInManager.IsSignedIn(User))
+{
+    @if (User.FindFirst("UserRole").Value == "Admin")
+    {
+        <p>
+            <a asp-action="Create" class="btn btn-primary">Add Supplier</a>
+        </p>
+    }
+}
+
+
 <table class="table">
     <thead>
         <tr>
@@ -38,8 +50,17 @@
                 @Html.DisplayFor(modelItem => item.SupplierPhone)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        @if (User.FindFirst("UserRole").Value == "Admin")
+                        {
+                            <a asp-action="Edit" class="text-decoration-none" asp-route-id="@item.Id">Edit •</a>
+                            <a asp-action="Delete" class="text-decoration-none" asp-route-id="@item.Id">Delete</a>
+                        }
+                    }
+
+                    
             </td>
         </tr>
 }

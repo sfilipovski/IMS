@@ -1,6 +1,7 @@
 ﻿using IMS.Domain.DTO.Command;
 using IMS.Domain.Models;
 using IMS.Service.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IMS.Web.Controllers;
@@ -75,9 +76,31 @@ public class WarehousesController : Controller
         return RedirectToAction("Index");
     }
 
+    public IActionResult DeleteProduct(int id)
+    {
+        var warehouseProduct = this._warehouseService.GetById(id);
+
+        if (warehouseProduct == null) return NotFound(warehouseProduct);
+
+        return View(warehouseProduct);
+    }
+
+    [HttpPost, ActionName("DeleteProduct")]
+    [ValidateAntiForgeryToken]
+    public IActionResult DeleteProductConfirmed(int id)
+    {
+        this._warehouseService.DeleteWarehouseProduct(id);
+        return RedirectToAction("Index");
+    }
+
     public IActionResult GetAllWarehouseProducts()
     {
         return View(this._warehouseService.GetAllWarehouseProducts());
+    }
+
+    public IActionResult GetWarehouseProducts(int id)
+    {
+        return View("GetAllWarehouseProducts", this._warehouseService.GetWarehouseProducts(id));
     }
 
     public IActionResult Reorder(int id)

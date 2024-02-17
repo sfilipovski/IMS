@@ -3,14 +3,13 @@
 
 
 @{
-    ViewData["Title"] = "AddProductInWarehouse";
+    ViewData["Title"] = "Add Product In Warehouse";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
-<h1>Create</h1>
+<h1>Add Product In Warehouse</h1>
 
-<h4>Product</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -36,7 +35,7 @@
                 <label asp-for="ReorderLimit" class="control-label"></label>
                 <input asp-for="ReorderLimit" class="form-control" type="number" />
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -44,7 +43,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to Products</a>
 </div>
 
 @section Scripts {

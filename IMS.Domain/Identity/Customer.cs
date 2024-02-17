@@ -18,5 +18,5 @@ public class Customer : Account
     [MaxLength(100)]
     public string City { get; set; }
     public Cart CustomerCart { get; set; } = new Cart();
-    public virtual ICollection<Order>? CustomerOrders { get; set; }
+    //public virtual ICollection<Order>? CustomerOrders { get; set; }
 }

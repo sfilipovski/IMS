@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container">
-    <h1>Register</h1>
+    <h1 class="display-5 ">Register</h1>
     @Html.ValidationSummary()
     <form asp-action="Register" asp-controller="Account" method="post">
 
@@ -40,7 +40,7 @@
                 <label asp-for="@Model.Username" class="col-lg-3 control-label"></label>
                 <br>
                 <div class="col-lg-9">
-                    @Html.TextBoxFor(m => m.Username, new { placeholder = "Email", @class = "form-control" })
+                    @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.Username)
                 </div>
             </div>
@@ -79,7 +79,7 @@
                 <label asp-for="@Model.Country" class="col-lg-3 control-label"></label>
                 <br>
                 <div class="col-lg-9">
-                    @Html.TextBoxFor(m => m.Country, new { placeholder = "Phone Number", @class = "form-control" })
+                    @Html.TextBoxFor(m => m.Country, new { placeholder = "User Country", @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.Country)
                 </div>
             </div>
@@ -88,12 +88,12 @@
                 <label asp-for="@Model.City" class="col-lg-3 control-label"></label>
                 <br>
                 <div class="col-lg-9">
-                    @Html.TextBoxFor(m => m.City, new { placeholder = "Phone Number", @class = "form-control" })
+                    @Html.TextBoxFor(m => m.City, new { placeholder = "User City", @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.City)
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <div class="col-sm-12 btn-submit">
                     <button type="submit" class="btn btn-success">Sign Up</button>
 

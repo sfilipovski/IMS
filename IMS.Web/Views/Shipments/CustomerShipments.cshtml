@@ -1,0 +1,78 @@
+﻿@model IEnumerable<IMS.Domain.Models.Shipment>
+
+@{
+    ViewData["Title"] = "CustomerShipments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>CustomerShipments</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ShipmentCompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShipmentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShipmentStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShipmentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShipmentAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShipmentCity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShipmentCountry)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShippingOrder)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipmentCompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipmentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipmentStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipmentType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipmentAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipmentCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipmentCountry)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingOrder.CustomerId)
+            </td>
+            <td>
+                    <a asp-action="Edit" class="text-decoration-none" asp-route-id="@item.Id">Edit</a> •
+                    <a asp-action="Details" class="text-decoration-none" asp-route-id="@item.Id">Details</a> •
+                    <a asp-action="Delete" class="text-decoration-none" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

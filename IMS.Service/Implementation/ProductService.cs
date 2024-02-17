@@ -35,8 +35,8 @@ public class ProductService : IProductService
 
     public void CreateNewProduct(Product product)
     {
-        product.ProductCategory = _categoryRepository.Get(product.ProductCategoryId);
-        product.ProductSupplier = _supplierRepository.Get(product.ProductSupplierId);
+        /*product.ProductCategory = _categoryRepository.Get(product.ProductCategoryId);
+        product.ProductSupplier = _supplierRepository.Get(product.ProductSupplierId);*/
         this._repository.Create(product);
     }
 
@@ -76,15 +76,21 @@ public class ProductService : IProductService
     public void AddProductToWarehouse(WarehouseProducts wp)
     {
         Product product = this._repository.Get(wp.WarehouseProductId);
-        Warehouse warehouse = this._warehouseRepository.Get(wp.WarehouseProductId);
+        Warehouse warehouse = this._warehouseRepository.Get(wp.WarehouseId);
 
         if (product == null || warehouse == null) return;
 
+        var wpExists = this._warehouseProductsRepository.GetByProductIdAndWarehouseId(product.Id, warehouse.Id);
+
+        if (wpExists != null)
+        {
+            this._warehouseProductsRepository.ReorderQuantity(warehouse.Id, product.Id, wp.QuantityInStock);
+            return;
+        }
+
         WarehouseProducts warehouseProducts = new WarehouseProducts
         {
-            WarehouseProduct = product,
             WarehouseProductId = wp.WarehouseProductId,
-            Warehouse = warehouse,
             WarehouseId = wp.WarehouseId,
             QuantityInStock = wp.QuantityInStock,
             ReorderLimit = wp.ReorderLimit
@@ -127,7 +133,7 @@ public class ProductService : IProductService
     {
         var customer = _accountRepository.GetCustomerById(customerId);
 
-        var cart = _cartRepository.GetActiveCart(customer.Id);
+        var cart = _cartRepository.GetActiveCart(customerId);
 
         if (customer == null || cart == null) return false;
 
@@ -135,27 +141,30 @@ public class ProductService : IProductService
 
         if (warehouse == null) return false;
 
-        if(_cartProductsRepository.GetByCartId(cart.Id).CartProductId == request.ProductId)
+        var cp = _cartProductsRepository.GetByProductIdAndCartId(request.ProductId, cart.Id);
+
+        if(cp!= null)
         {
-            if (this._warehouseProductsRepository.UpdateQuantity(request.WarehouseId, request.ProductId, request.Quantity))
+            bool update = this._warehouseProductsRepository.UpdateQuantity(request.WarehouseId, request.ProductId, request.Quantity);
+            if (update)
             {
-                this._cartProductsRepository.UpdateQuantity(cart.Id, request.Quantity);
+                this._cartProductsRepository.UpdateQuantity(cart.Id, request.ProductId, request.Quantity);
                 return true;
             }
             return false;
         }
 
+
         Product product = this._repository.Get(request.ProductId);
+        var cartt = this._cartRepository.GetCartById(cart.Id);
 
         CartProducts cartProduct = new CartProducts
         {
             CartProductId = request.ProductId,
-            CartProduct = product,
-            CartId = cart.Id,
-            Cart = cart,
+            CartId = cartt.Id,
             CartProductQuantity = request.Quantity
         };
-
+        //
 
         if(this._warehouseProductsRepository.UpdateQuantity(request.WarehouseId, request.ProductId, request.Quantity))
         {

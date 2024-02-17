@@ -5,12 +5,24 @@
       "PackagePath": "staticwebassets\\IMS.Web.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\pc\\source\\repos\\IMS\\IMS.Web\\wwwroot\\css\\main.css",
+      "PackagePath": "staticwebassets\\css\\main.css"
+    },
+    {
       "Id": "C:\\Users\\pc\\source\\repos\\IMS\\IMS.Web\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "C:\\Users\\pc\\source\\repos\\IMS\\IMS.Web\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\pc\\source\\repos\\IMS\\IMS.Web\\wwwroot\\images\\luxa.org-opacity-changed-isometric-projection-warehouse-management-system-royalty-free-warehouse-eb0f0452679e211547d7a1af68897b7b.png",
+      "PackagePath": "staticwebassets\\images\\luxa.org-opacity-changed-isometric-projection-warehouse-management-system-royalty-free-warehouse-eb0f0452679e211547d7a1af68897b7b.png"
+    },
+    {
+      "Id": "C:\\Users\\pc\\source\\repos\\IMS\\IMS.Web\\wwwroot\\images\\warehousebanner_.png",
+      "PackagePath": "staticwebassets\\images\\warehousebanner_.png"
     },
     {
       "Id": "C:\\Users\\pc\\source\\repos\\IMS\\IMS.Web\\wwwroot\\js\\site.js",

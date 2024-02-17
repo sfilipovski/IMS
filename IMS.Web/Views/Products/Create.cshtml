@@ -8,49 +8,48 @@
 }
 
 
-<h1>Create</h1>
+<h1 class="display-5">Create New Product</h1>
 
-<h4>Product</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" asp-controller="Products" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ProductName" class="control-label"></label>
+                <label asp-for="ProductName" class="control-label mb-2"></label>
                 <input asp-for="ProductName" class="form-control" type="text"/>
                 <span asp-validation-for="ProductName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProductImageUrl" class="control-label"></label>
+                <label asp-for="ProductImageUrl" class="control-label mb-2"></label>
                 <input asp-for="ProductImageUrl" class="form-control" type="text" />
             </div>
             <div class="form-group">
-                <label asp-for="ProductDescription" class="control-label"></label>
+                <label asp-for="ProductDescription" class="control-label mb-2"></label>
                 <input asp-for="ProductDescription" class="form-control" type="text" />
             </div>
             <div class="form-group">
-                <label asp-for="ProductPrice" class="control-label"></label>
+                <label asp-for="ProductPrice" class="control-label mb-2"></label>
                 <input asp-for="ProductPrice" class="form-control" type="number" />
                 <span asp-validation-for="ProductPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProdctSKU" class="control-label"></label>
+                <label asp-for="ProdctSKU" class="control-label mb-2"></label>
                 <input asp-for="ProdctSKU" class="form-control" type="text" />
             </div>
             <div class="form-group">
-                <label class="control-label">Category</label>
-                <select asp-for="ProductCategoryId" class="form-control"
+                <label class="control-label mb-2">Category</label>
+                <select asp-for="ProductCategoryId" class="form-control "
                         asp-items="ViewBag.Categories"
                         id="Id"></select>
             </div>
             <div class="form-group">
-                <label class="control-label">Supplier</label>
+                <label class="control-label mb-2">Supplier</label>
                 <select asp-for="ProductSupplierId" class="form-control"
                         asp-items="ViewBag.Suppliers"
                         id="Id"></select>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -58,7 +57,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to Products</a>
 </div>
 
 @section Scripts {

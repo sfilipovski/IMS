@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1 class="display-5 fw-bolder mb-3">Reorder Product</h1>
 
-<h4>Warehouse</h4>
+<h4 class="text-decoration-underline">Warehouse #@Model.WarehouseId</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -17,13 +17,13 @@
             <input type="hidden" asp-for="ProductId" />
             <input type="hidden" asp-for="WarehouseId" />
             <div class="form-group">
-                <label asp-for="ReorderQuantity" class="control-label"></label>
+                <label asp-for="ReorderQuantity" class="control-label fw-bolder mb-2 fs-5"></label>
                 <input asp-for="ReorderQuantity" class="form-control" type="number" />
                 <span asp-validation-for="ReorderQuantity" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-group mt-3">
+                <input type="submit" value="Reorder" class="btn btn-primary" />
             </div>
         </form>
     </div>

@@ -35,6 +35,40 @@ public class ApplicationDbContext : IdentityDbContext
         builder.Entity<Customer>(entity => { entity.ToTable("Customers"); });
         builder.Entity<Admin>(entity => { entity.ToTable("Admins"); });
 
+        builder.Entity<Product>()
+            .Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+
+        builder.Entity<Supplier>()
+            .Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+
+        builder.Entity<Category>()
+            .Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+
+        builder.Entity<Warehouse>()
+            .Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+
+        builder.Entity<Cart>()
+            .Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+
+        builder.Entity<Cart>()
+            .Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+
+        builder.Entity<Order>()
+            .Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+
+        builder.Entity<Shipment>()
+            .Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+
+
+
         // <-- Product -->
 
         /*builder.Entity<Product>()
@@ -43,20 +77,20 @@ public class ApplicationDbContext : IdentityDbContext
             .HasForeignKey(x => x.ProductSupplierId)
             .IsRequired(false);*/
 
-       /* builder.Entity<Product>()
-            .HasOne(x => x.ProductCategory)
-            .WithMany(x => x.CategoryProducts)
-            .HasForeignKey(x => x.ProductCategoryId)
-            .IsRequired(false);*/
+        /* builder.Entity<Product>()
+             .HasOne(x => x.ProductCategory)
+             .WithMany(x => x.CategoryProducts)
+             .HasForeignKey(x => x.ProductCategoryId)
+             .IsRequired(false);*/
 
         // <-- Order -->
-
-        builder.Entity<Order>()
-            .HasOne(x => x.Customer)
-            .WithMany(x => x.CustomerOrders)
-            .HasForeignKey(x => x.CustomerId)
-            .IsRequired(true);
-
+        /*
+                builder.Entity<Order>()
+                    .HasOne(x => x.Customer)
+                    .WithMany(x => x.CustomerOrders)
+                    .HasForeignKey(x => x.CustomerId)
+                    .IsRequired(true);
+        */
         // <-- Cart -->
 
         builder.Entity<Cart>()
@@ -70,7 +104,7 @@ public class ApplicationDbContext : IdentityDbContext
             .HasOne(x => x.ShippingOrder)
             .WithOne(x => x.Shipment)
             .HasForeignKey<Shipment>(x => x.ShippingOrderId)
-            .IsRequired(true);
+            .IsRequired(false);
 
         // <-- WarehouseProducts -->
 
@@ -88,24 +122,30 @@ public class ApplicationDbContext : IdentityDbContext
             .HasForeignKey(x => x.WarehouseId);
 
         // <-- OrderProducts -->
+        /*
+                builder.Entity<OrderProducts>()
+                    .HasKey(x => new { x.OrderId, x.OrderProductId });
 
-        builder.Entity<OrderProducts>()
-            .HasKey(x => new { x.OrderId, x.OrderProductId });
+                builder.Entity<OrderProducts>()
+                    .HasOne(x => x.Order)
+                    .WithMany(x => x.OrderProducts)
+                    .HasForeignKey(x => x.OrderId);
 
-        builder.Entity<OrderProducts>()
-            .HasOne(x => x.Order)
-            .WithMany(x => x.OrderProducts)
-            .HasForeignKey(x => x.OrderId);
-
-        builder.Entity<OrderProducts>()
-            .HasOne(x => x.OrderProduct)
-            .WithMany(x => x.OrderProducts)
-            .HasForeignKey(x => x.OrderProductId);
+                builder.Entity<OrderProducts>()
+                    .HasOne(x => x.OrderProduct)
+                    .WithMany(x => x.OrderProducts)
+                    .HasForeignKey(x => x.OrderProductId);*/
 
         // <-- CartProducts -->
 
         builder.Entity<CartProducts>()
             .HasKey(x => new { x.CartId, x.CartProductId });
+
+        /*builder.Entity<CartProducts>()
+            .Property(x => new { x.CartId, x.CartProductId })
+            .ValueGeneratedOnAdd();*/
+
+
 
         builder.Entity<CartProducts>()
             .HasOne(x => x.Cart)

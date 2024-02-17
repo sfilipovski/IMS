@@ -1,0 +1,67 @@
+﻿@using IMS.Domain.Identity
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IMS.Domain.Models.Shipment>
+
+   @inject SignInManager<Account> SignInManager
+@inject UserManager<Account> UserManager
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Shipments</h1>
+
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    @if (User.FindFirst("UserRole").Value == "Admin")
+    {
+
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+    }
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ShipmentCompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShipmentType)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipmentCompanyName)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipmentType)
+            </td>
+            
+            <td>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        @if (User.FindFirst("UserRole").Value == "Admin")
+                        {
+                            <a asp-action="Edit" class="text-decoration-none" asp-route-id="@item.Id">Edit •</a>
+                            <a asp-action="Delete" class="text-decoration-none" asp-route-id="@item.Id">Delete</a>
+                        }
+                    }
+                    
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

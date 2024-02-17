@@ -1,15 +1,27 @@
-﻿@model IEnumerable<IMS.Domain.Models.Warehouse>
+﻿@using IMS.Domain.Identity
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IMS.Domain.Models.Warehouse>
+
+   @inject SignInManager<Account> SignInManager
+@inject UserManager<Account> UserManager
+
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>All Warehouses</h1>
+@if (SignInManager.IsSignedIn(User))
+{
+    @if(User.FindFirst("UserRole").Value == "Admin")
+    {
+        <p>
+            <a asp-action="Create" class="btn btn-primary">Add new Warehouse</a>
+        </p>
+    }
+}
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -25,7 +37,16 @@
             <th>
                 @Html.DisplayNameFor(model => model.WarehouseCity)
             </th>
-            <th></th>
+            <th>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    @if (User.FindFirst("UserRole").Value == "Admin")
+                    {
+                        <a class="btn btn-outline-success" asp-controller="Warehouses" asp-action="GetAllWarehouseProducts">All Warehouse Products</a>
+
+                    }
+                }
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -44,8 +65,15 @@
                 @Html.DisplayFor(modelItem => item.WarehouseCity)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> 
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        @if (User.FindFirst("UserRole").Value == "Admin")
+                        {
+                            <a asp-action="GetWarehouseProducts" class="text-decoration-none" asp-route-id="@item.Id">Products •</a>
+                            <a asp - action = "Edit" class="text-decoration-none" asp-route-id="@item.Id">Edit •</a>
+                            <a asp-action="Delete" class="text-danger text-decoration-none" asp-route-id="@item.Id">Delete</a>
+                }
+                    }
                 
             </td>
         </tr>

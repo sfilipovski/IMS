@@ -10,5 +10,8 @@ public interface ICartProductsRepository
     void Update(CartProducts entity);
     void Delete(CartProducts entity);
     CartProducts GetByCartId(int cartId);
-    void UpdateQuantity(int cartId, int quantity);
+    CartProducts GetByProductId(int productId);
+    CartProducts GetByProductIdAndCartId(int productId, int cartId);
+    List<CartProducts> GetProductsByCartId(int cartId);
+    void UpdateQuantity(int cartId, int productId,int quantity);
 }

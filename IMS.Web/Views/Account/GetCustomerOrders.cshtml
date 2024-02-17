@@ -1,0 +1,66 @@
+﻿@using IMS.Domain.Identity
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IMS.Domain.Models.Order>
+   @inject SignInManager<Account> SignInManager
+@inject UserManager<Account> UserManager
+
+@{
+    ViewData["Title"] = "Customer Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="display-5">Customer Orders</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderTotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shipment.ShipmentCompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shipment.ShipmentType)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDateCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderStatus)
+            </td>
+            <td>
+                $ @Html.DisplayFor(modelItem => item.OrderTotalPrice)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shipment.ShipmentCompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shipment.ShipmentType)
+                </td>
+            <td>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        @if (User.FindFirst("UserRole").Value == "Admin")
+                        {
+                            <a asp-action="DeleteOrder" class="text-decoration-none" asp-route-id="@item.Id">Delete</a>
+                        }
+                    }
+                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

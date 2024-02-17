@@ -66,4 +66,15 @@ public class WarehouseService : IWarehouseService
     {
         return this._warehouseProductsRepository.Get(id);
     }
+
+    public List<WarehouseProducts> GetWarehouseProducts(int warehouseId)
+    {
+        return this._warehouseProductsRepository.GetByWarehouseId(warehouseId);
+    }
+
+    public void DeleteWarehouseProduct(int id)
+    {
+        var wp = this.GetById(id);
+        if(wp!= null) this._warehouseProductsRepository.Delete(wp);
+    }
 }

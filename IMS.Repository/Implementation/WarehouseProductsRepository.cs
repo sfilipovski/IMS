@@ -40,9 +40,9 @@ public class WarehouseProductsRepository : IWarehouseProductsRepository
     public ICollection<WarehouseProducts> GetAll()
     {
         return applicationDbContext.WarehouseProducts
-            .AsNoTracking()
             .Include(x => x.Warehouse)
             .Include(x => x.WarehouseProduct)
+            .AsNoTracking()
             .ToList();
     }
 
@@ -58,7 +58,12 @@ public class WarehouseProductsRepository : IWarehouseProductsRepository
 
     public List<WarehouseProducts> GetByWarehouseId(int warehouseId)
     {
-        return this.applicationDbContext.WarehouseProducts.Where(x => x.WarehouseId == warehouseId).ToList();
+        return this.applicationDbContext.WarehouseProducts
+            .AsNoTracking()
+            .Include(x => x.WarehouseProduct)
+            .Include(x => x.Warehouse)
+            .Where(x => x.WarehouseId == warehouseId)
+            .ToList();
     }
 
     public bool ReorderQuantity(int? warehouseId, int productId, int quantity)
@@ -68,14 +73,14 @@ public class WarehouseProductsRepository : IWarehouseProductsRepository
         if (wp == null) return false;
 
         wp.QuantityInStock += quantity;
-        applicationDbContext.SaveChanges();
+        this.Update(wp);
 
         return true;
     }
 
     public void Update(WarehouseProducts entity)
     {
-        applicationDbContext.Update(entity);
+        applicationDbContext.Update(entity).Property(x => x.Id).IsModified = false;
         applicationDbContext.SaveChanges();
     }
 
@@ -87,7 +92,8 @@ public class WarehouseProductsRepository : IWarehouseProductsRepository
         if (wp.QuantityInStock > quantity)
         {
             wp.QuantityInStock -= quantity;
-            applicationDbContext.SaveChanges();
+
+            this.Update(wp);
             return true;
         }
         
